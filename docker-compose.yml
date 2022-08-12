@@ -1,0 +1,44 @@
+version: "3.8"
+services:
+  database:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - 5436:5432
+    volumes:
+      - data:/var/lib/postgresql/data
+    networks:
+      - net
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: "rabbitmq"
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+      - net
+
+  server:
+    image: nazarkorpal/projectx-backend
+    depends_on:
+      - database
+      - rabbitmq
+    networks:
+      - net
+    ports:
+      - 8080:8080
+
+volumes:
+  data:
+
+networks:
+  net:
+    driver: bridge
