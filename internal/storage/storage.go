@@ -5,7 +5,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type Storage struct{
+type Storage struct {
 	Image
 }
 

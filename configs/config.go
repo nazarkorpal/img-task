@@ -3,7 +3,7 @@ package configs
 import "github.com/nazarkorpal/img-task/tools"
 
 type Config struct {
-	DB    *DB
+	DB         *DB
 	RABBIT_URL string
 }
 

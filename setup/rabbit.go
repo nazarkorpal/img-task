@@ -20,16 +20,15 @@ func ConnectRabbitMQ(url string) (*amqp.Channel, error) {
 	return ch, err
 }
 
-
 func initQueue(ch *amqp.Channel) error {
 	_, err := ch.QueueDeclare(
-	  "images", // name
-	  false,   // durable
-	  true,   // delete when unused
-	  false,   // exclusive
-	  false,   // no-wait
-	  nil,     // arguments
+		"images", // name
+		false,    // durable
+		false,    // delete when unused
+		false,    // exclusive
+		false,    // no-wait
+		nil,      // arguments
 	)
 
-return err
+	return err
 }

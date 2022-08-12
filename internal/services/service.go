@@ -2,7 +2,7 @@ package services
 
 import "github.com/nazarkorpal/img-task/internal/storage"
 
-type Service struct{
+type Service struct {
 	Image
 }
 
