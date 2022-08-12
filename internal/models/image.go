@@ -1,14 +1,15 @@
 package models
 
-import "time"
+import (
+	"gorm.io/gorm"
+)
 
 type Image struct {
-	Hash      string `gorm:"primaryKey"`
-	Hash75    string
-	Hash50    string
-	Hash25    string
-	Ext       string
-	Name      string
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	gorm.Model
+	Hash   string
+	Hash75 string
+	Hash50 string
+	Hash25 string
+	Ext    string
+	Name   string
 }

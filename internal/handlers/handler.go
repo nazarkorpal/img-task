@@ -3,6 +3,7 @@ package handlers
 import (
 	"net/http"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/nazarkorpal/img-task/internal/services"
 )
@@ -23,7 +24,10 @@ func (h *Handler) Init() *gin.Engine {
 	router.Use(
 		gin.Recovery(),
 		gin.Logger(),
+		cors.Default(),
 	)
+
+	router.Use()
 
 	// Init router
 	router.GET("/ping", func(c *gin.Context) {
@@ -35,4 +39,3 @@ func (h *Handler) Init() *gin.Engine {
 
 	return router
 }
-
