@@ -136,32 +136,20 @@ func (i *imageService) GenerateLessQualityImages() error {
 			}
 
 			//Generating 25% quality image
-			newImage, err := bimg.NewImage(bytes).Process(bimg.Options{Quality: 25})
+			addImage(bytes, generatePath(hash25+image.Ext), 25)
 			if err != nil {
-				return err
-			}
-
-			if err := bimg.Write(generatePath(hash25+image.Ext), newImage); err != nil {
 				return err
 			}
 
 			//Generating 50% quality image
-			newImage, err = bimg.NewImage(bytes).Process(bimg.Options{Quality: 50})
+			addImage(bytes, generatePath(hash50+image.Ext), 50)
 			if err != nil {
-				return err
-			}
-
-			if err := bimg.Write(generatePath(hash50+image.Ext), newImage); err != nil {
 				return err
 			}
 
 			//Generating 75% quality image
-			newImage, err = bimg.NewImage(bytes).Process(bimg.Options{Quality: 75})
+			addImage(bytes, generatePath(hash75+image.Ext), 75)
 			if err != nil {
-				return err
-			}
-
-			if err := bimg.Write(generatePath(hash75+image.Ext), newImage); err != nil {
 				return err
 			}
 
@@ -173,4 +161,14 @@ func (i *imageService) GenerateLessQualityImages() error {
 			time.Sleep(time.Second)
 		}
 	}
+}
+
+func addImage(file []byte, path string, quality int) error {
+	newImage, err := bimg.NewImage(file).Process(bimg.Options{Quality: quality})
+	if err != nil {
+		return err
+	}
+
+	err = bimg.Write(path, newImage)
+	return err
 }

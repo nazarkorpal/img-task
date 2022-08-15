@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+	"fmt"
 
 	"github.com/joho/godotenv"
 	"github.com/nazarkorpal/img-task/internal/api"
@@ -9,7 +9,7 @@ import (
 
 func init() {
 	if err := godotenv.Load(); err != nil {
-		log.Fatal("No .env file found")
+		fmt.Println("No .env file found")
 	}
 }
 

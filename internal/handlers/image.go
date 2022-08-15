@@ -16,6 +16,7 @@ type imageHandler struct {
 type Image interface {
 	routes(rg *gin.RouterGroup)
 	AddImage() gin.HandlerFunc
+	GetImage() gin.HandlerFunc
 }
 
 func NewImageHandler(image services.Image) Image {

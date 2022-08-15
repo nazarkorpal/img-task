@@ -15,13 +15,7 @@ func ConnectRabbitMQ(url string) (*amqp.Channel, error) {
 		return nil, err
 	}
 
-	err = initQueue(ch)
-
-	return ch, err
-}
-
-func initQueue(ch *amqp.Channel) error {
-	_, err := ch.QueueDeclare(
+	_, err = ch.QueueDeclare(
 		"images", // name
 		false,    // durable
 		false,    // delete when unused
@@ -30,5 +24,5 @@ func initQueue(ch *amqp.Channel) error {
 		nil,      // arguments
 	)
 
-	return err
+	return ch, err
 }
