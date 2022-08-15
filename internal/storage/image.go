@@ -35,7 +35,7 @@ func (i *imageStorage) PublishToQueue(queueName string, imageHash string) error 
 }
 
 func (i *imageStorage) TakeFromQueue(queueName string) (<-chan amqp.Delivery, error) {
-	return i.rabbitMQ.Consume(queueName, "", true, false, false, true, nil)
+	return i.rabbitMQ.Consume(queueName, "", true, true, true, true, nil)
 }
 
 func (i *imageStorage) InsertImage(image *models.Image) error {
@@ -51,7 +51,7 @@ func (i *imageStorage) GetImageByID(imageID uint) (*models.Image, error) {
 
 func (i *imageStorage) GetImageByHash(imageHash string) (*models.Image, error) {
 	var image models.Image
-	err := i.db.First(&image).Where("hash - ?", imageHash).Error
+	err := i.db.First(&image, "hash = ?", imageHash).Error
 
 	return &image, err
 }
