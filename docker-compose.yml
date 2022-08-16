@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   database:
-    image: postgres
+    image: postgres:latest
     restart: unless-stopped
     environment:
       - POSTGRES_USER=postgres
@@ -16,13 +16,14 @@ services:
 
   rabbitmq:
     image: rabbitmq:3.8.25-management-alpine
-    container_name: "rabbitmq"
+    container_name: rabbitmq
+    hostname: rabbitmq
     ports:
       - 5672:5672
       - 15672:15672
     volumes:
-      - ./rabbitmq/data/:/var/lib/rabbitmq/
-      - ./rabbitmq/log/:/var/log/rabbitmq/
+      - /rabbitmq/data/:/var/lib/rabbitmq/
+      - /rabbitmq/log/:/var/log/rabbitmq/
     networks:
       - net
 
@@ -32,6 +33,7 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - database
+      - rabbitmq
     networks:
       - net
     ports:
